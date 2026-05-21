@@ -68,7 +68,7 @@
             -webkit-background-clip: text;
             color: transparent;
             letter-spacing: -0.01em;
-            margin-bottom: 2rem;
+            margin-bottom: 1rem;
             border-left: 4px solid #2eff7a;
             padding-left: 1.2rem;
             font-family: 'Fira Code', monospace;
@@ -82,6 +82,34 @@
             border: 1px solid #2a7f3e80;
             box-shadow: 0 25px 40px -12px black, inset 0 1px 0 rgba(80, 255, 120, 0.2);
             padding: 2rem;
+        }
+
+        /* ВСТУПЛЕНИЕ - ЧТО ТАКОЕ БЛОКЧЕЙН */
+        .what-is-blockchain {
+            background: rgba(10, 20, 15, 0.6);
+            border-radius: 1.5rem;
+            padding: 1.2rem 1.5rem;
+            margin-bottom: 2rem;
+            border-left: 5px solid #5eff8c;
+            font-family: 'Inter', monospace;
+        }
+        .what-is-blockchain h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #b5ffc8;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .what-is-blockchain p {
+            color: #cfecda;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 0.5rem;
+        }
+        .what-is-blockchain .highlight {
+            color: #9effb0;
+            font-weight: 500;
         }
 
         /* ---------- ВЕРХНЯЯ ЧАСТЬ: ВЕРТИКАЛЬНЫЕ БЛОКИ + ОПИСАНИЕ ---------- */
@@ -363,7 +391,15 @@
 <div class="container">
     <h1>⚡ Блокчейн: цифровое доверие</h1>
     <div class="big-terminal">
-        <!-- Верхняя часть: вертикальные блоки + описание -->
+        <!-- НОВЫЙ БЛОК: что такое блокчейн и зачем он нужен -->
+        <div class="what-is-blockchain">
+            <h2>📦 Что такое блокчейн?</h2>
+            <p><span class="highlight">Блокчейн</span> — это распределённая база данных, где информация хранится в виде непрерывной цепочки блоков. Каждый блок содержит набор записей (транзакций) и <span class="highlight">криптографическую ссылку</span> на предыдущий блок.</p>
+            <p>🔐 <strong>Главная задача блокчейна</strong> — обеспечить <span class="highlight">доверие без посредников</span>. Благодаря децентрализации и неизменяемости, блокчейн позволяет фиксировать любые ценности (деньги, контракты, активы) так, что их нельзя подделать или удалить. Вы можете проверить всю историю, но не можете изменить прошлое.</p>
+            <p>🌐 Блокчейн лежит в основе криптовалют (биткоин, эфир), смарт-контрактов, цифровых удостоверений, логистики и многих других сфер, где важна <span class="highlight">прозрачность и защита от мошенничества</span>.</p>
+        </div>
+
+        <!-- Верхняя часть: вертикальные блоки + описание (4 ключевых свойства) -->
         <div class="features-layout">
             <div class="features-list" id="featuresList">
                 <div class="feature-item" data-idx="0">
@@ -448,21 +484,17 @@
     }
 
     // ---------- УПРАВЛЕНИЕ БЛОКАМИ И БАЛАНСАМИ ----------
-    let blocks = []; // каждый блок: { index, from, to, amount, description, prevHash, hash, balanceAfter? вычисляется отдельно }
+    let blocks = []; 
 
-    // пересчёт балансов (на основе генезис блока и последовательных транзакций)
-    // также обновляет поле senderBalanceAfter для каждого блока (баланс отправителя после выполнения)
     function recomputeBalancesAndChain() {
         if (!blocks.length) return;
-        let balances = new Map(); // address -> balance
-        // начальная инициализация из genesis блока (особый)
+        let balances = new Map();
         const genesis = blocks[0];
         if (genesis.from === "Genesis" && genesis.to === "Alice") {
-            balances.set("Alice", genesis.amount); // 50
+            balances.set("Alice", genesis.amount);
         } else {
             balances.set("Alice", 0);
         }
-        // для каждого блока, начиная с 1, применяем транзакцию
         for (let i = 1; i < blocks.length; i++) {
             const b = blocks[i];
             const fromBalance = balances.get(b.from) || 0;
@@ -470,13 +502,11 @@
             const toBalance = balances.get(b.to) || 0;
             balances.set(b.from, newFromBalance);
             balances.set(b.to, toBalance + b.amount);
-            b.senderBalanceAfter = newFromBalance; // сохраняем для отображения
+            b.senderBalanceAfter = newFromBalance;
         }
-        // для genesis тоже добавим поле
         blocks[0].senderBalanceAfter = balances.get("Alice");
     }
 
-    // перестроить всю цепочку хешей (правильные prevHash и hash)
     function rebuildChainHashes() {
         let prevHash = "0";
         for (let i = 0; i < blocks.length; i++) {
@@ -489,7 +519,6 @@
         renderChain();
     }
 
-    // инициализация цепочки: genesis блок c балансом 50 (неудаляемый)
     function initGenesis() {
         const genesis = {
             index: 1,
@@ -503,10 +532,9 @@
         };
         genesis.hash = computeBlockHash(1, genesis.from, genesis.to, genesis.amount, genesis.description, "0");
         blocks = [genesis];
-        rebuildChainHashes(); // перестроит хеши и балансы
+        rebuildChainHashes();
     }
 
-    // добавить новый блок (транзакцию) в конец
     function addTransaction(from, to, amount, description) {
         const newIndex = blocks.length + 1;
         const prevBlock = blocks[blocks.length - 1];
@@ -522,11 +550,10 @@
         };
         newBlock.hash = computeBlockHash(newIndex, from, to, Number(amount), description, prevBlock.hash);
         blocks.push(newBlock);
-        rebuildChainHashes(); // пересчитывает всё, чтобы балансы и хеши были консистентны
+        rebuildChainHashes();
         renderChain();
     }
 
-    // удалить последний блок (если не genesis)
     function removeLastBlock() {
         if (blocks.length <= 1) {
             alert("Первый блок (Genesis) нельзя удалить — он содержит начальный баланс 50");
@@ -537,7 +564,6 @@
         renderChain();
     }
 
-    // обновление данных конкретного блока (из формы)
     function updateBlock(blockIdx, newFrom, newTo, newAmount, newDesc) {
         const block = blocks.find(b => b.index === blockIdx);
         if (!block) return;
@@ -550,27 +576,22 @@
         block.to = newTo;
         block.amount = Number(newAmount);
         block.description = newDesc;
-        // не меняем prevHash, только пересчитываем hash этого блока (цепочка сломается)
         block.hash = computeBlockHash(block.index, block.from, block.to, block.amount, block.description, block.prevHash);
-        // балансы и связи пересчитаем при рендере, но хеши следующих блоков останутся старыми => цепочка сломается
-        recomputeBalancesAndChain(); // пересчет балансов на основе текущих данных (но хеши не трогаем)
+        recomputeBalancesAndChain();
         renderChain();
     }
 
-    // функция проверки целостности (валидность хешей и связей)
     function validateChain() {
-        let valid = true;
         let expectedPrev = "0";
         for (let i = 0; i < blocks.length; i++) {
             const b = blocks[i];
             const recalcHash = computeBlockHash(b.index, b.from, b.to, b.amount, b.description, expectedPrev);
             if (b.prevHash !== expectedPrev || b.hash !== recalcHash) {
-                valid = false;
-                break;
+                return false;
             }
             expectedPrev = b.hash;
         }
-        return valid;
+        return true;
     }
 
     function getBlockValidityArray() {
@@ -586,7 +607,6 @@
         return validity;
     }
 
-    // ----- ОТРИСОВКА ЦЕПОЧКИ -----
     function renderChain() {
         const container = document.getElementById('blockchainContainer');
         if (!container) return;
@@ -623,7 +643,7 @@
             `;
             container.appendChild(blockDiv);
         });
-        // добавить обработчики изменений полей
+
         document.querySelectorAll('.edit-from').forEach(inp => {
             const bid = parseInt(inp.dataset.block);
             inp.addEventListener('change', (e) => updateBlock(bid, e.target.value, getFieldValue(bid, 'to'), getFieldValue(bid, 'amount'), getFieldValue(bid, 'desc')));
@@ -685,7 +705,6 @@
         setActive(0);
     }
 
-    // ----- СОБЫТИЯ -----
     function bindChainEvents() {
         document.getElementById('addBlockBtn').addEventListener('click', () => {
             document.getElementById('confirmAddBtn').click();
