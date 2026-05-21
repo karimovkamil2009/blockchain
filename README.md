@@ -10,7 +10,7 @@
             box-sizing: border-box;
         }
 
-        /* ----- ФОН В СТИЛЕ ПРОГРАММИРОВАНИЯ (код/матрица) ----- */
+        /* фон в стиле программирования */
         body {
             background: #0a0c10;
             font-family: 'Fira Code', 'JetBrains Mono', 'SF Mono', 'Inter', monospace;
@@ -21,7 +21,6 @@
             min-height: 100vh;
         }
 
-        /* анимированный фон с "кодом" */
         body::before {
             content: "";
             position: fixed;
@@ -36,9 +35,8 @@
             z-index: 0;
         }
 
-        /* "шум" из символов */
         body::after {
-            content: "console.log('blockchain ready'); >_ const hash = sha256(block); // immutable  ฿  </>";
+            content: ">_ const blockchain = new Chain(); // immutable & transparent";
             position: fixed;
             bottom: 20px;
             right: 20px;
@@ -56,13 +54,12 @@
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1500px;
             margin: 0 auto;
             position: relative;
             z-index: 2;
         }
 
-        /* Заголовок главный */
         h1 {
             font-size: 2.8rem;
             font-weight: 700;
@@ -75,103 +72,123 @@
             border-left: 4px solid #2eff7a;
             padding-left: 1.2rem;
             font-family: 'Fira Code', monospace;
-            text-shadow: 0 0 5px #1eff6e30;
         }
 
-        /* ----- ОДИН БОЛЬШОЙ ПРЯМОУГОЛЬНИК (все блоки внутри) ----- */
+        /* единый большой контейнер */
         .big-terminal {
             background: rgba(8, 12, 18, 0.85);
             backdrop-filter: blur(12px);
             border-radius: 2.5rem;
             border: 1px solid #2a7f3e80;
             box-shadow: 0 25px 40px -12px black, inset 0 1px 0 rgba(80, 255, 120, 0.2);
-            padding: 2rem 2rem 2.2rem;
-            transition: all 0.2s;
+            padding: 2rem;
         }
 
-        /* секции без номеров (убрали 01,02) */
-        .section {
+        /* ---------- ВЕРХНЯЯ ЧАСТЬ: ВЕРТИКАЛЬНЫЕ БЛОКИ + ОПИСАНИЕ ---------- */
+        .features-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 2rem;
             margin-bottom: 3rem;
+            border-bottom: 1px solid #2a7f3e60;
+            padding-bottom: 2rem;
         }
 
+        /* вертикальные карточки (колонка) */
+        .features-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .feature-item {
+            background: rgba(12, 20, 16, 0.7);
+            border: 1px solid #2a7f3e70;
+            border-radius: 1.5rem;
+            padding: 1rem 1.2rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .feature-item:hover {
+            border-color: #6eff96;
+            background: #1e2a24;
+            transform: translateX(4px);
+        }
+
+        .feature-item.active {
+            border-color: #5eff8c;
+            background: #1f3a2c;
+            box-shadow: 0 0 10px #2eff7a30;
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+        }
+
+        .feature-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #d0ffd8;
+        }
+
+        /* панель описания справа */
+        .feature-description-panel {
+            background: #0f151f80;
+            border-radius: 1.8rem;
+            border: 1px solid #3d8b5e80;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .desc-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #aaffc3;
+        }
+
+        .desc-text {
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #cae6d4;
+        }
+
+        /* ---------- ИНТЕРАКТИВНАЯ МОДЕЛЬ (БЛОКЧЕЙН С ТРАНЗАКЦИЯМИ) ---------- */
         .section-title {
             font-size: 1.7rem;
             font-weight: 600;
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            margin: 1rem 0 1.5rem;
             border-bottom: 2px solid #2a7f3e60;
             display: inline-block;
             padding-bottom: 0.3rem;
-            letter-spacing: -0.3px;
         }
 
-        /* карточки преимуществ (сетка) */
-        .grid-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1rem;
-        }
-
-        .benefit-card {
-            background: rgba(12, 18, 26, 0.8);
-            backdrop-filter: blur(2px);
-            border: 1px solid #2a7f3e70;
-            border-radius: 1.5rem;
-            padding: 1.5rem;
-            transition: all 0.2s ease;
-            font-family: 'Inter', 'Fira Code', monospace;
-        }
-
-        .benefit-card:hover {
-            border-color: #4eff7a;
-            background: rgba(20, 30, 28, 0.9);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(46, 255, 122, 0.1);
-        }
-
-        .benefit-icon {
-            font-size: 2.2rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .benefit-card h3 {
-            font-size: 1.4rem;
-            font-weight: 600;
-            margin-bottom: 0.65rem;
-            color: #b9ffc4;
-        }
-
-        .benefit-card p {
-            color: #b8c7e7;
-            font-size: 0.9rem;
-            line-height: 1.45;
-        }
-
-        /* интерактивный симулятор блокчейна */
-        .simulator-wrapper {
-            background: #050a0f70;
-            border-radius: 1.8rem;
-            border: 1px solid #2a7f3e60;
-            padding: 1.5rem;
-            margin-top: 0.5rem;
+        .chain-controls {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
         }
 
         .chain-container {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
-            gap: 1.8rem;
-            margin: 1.8rem 0 1.5rem;
+            justify-content: flex-start;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
         }
 
         .block-card {
             background: #0c111b;
             border-radius: 1.2rem;
             border: 1px solid #2e7a4a;
-            width: 290px;
+            width: 320px;
             padding: 1rem;
             transition: 0.1s;
             box-shadow: 0 8px 16px rgba(0,0,0,0.5);
@@ -180,7 +197,6 @@
         .block-card.invalid {
             border: 2px solid #ff5f7a;
             background: #1e121a;
-            box-shadow: 0 0 0 2px #ff3b5c30;
         }
 
         .block-header {
@@ -194,11 +210,10 @@
 
         .block-index {
             font-weight: 700;
-            font-size: 1rem;
+            font-size: 0.9rem;
             background: #1c2a22;
             padding: 0.2rem 0.7rem;
             border-radius: 30px;
-            font-family: monospace;
         }
 
         .block-badge {
@@ -209,343 +224,377 @@
             color: #a2f5b0;
         }
 
-        .data-field {
-            margin: 0.8rem 0;
+        .tx-field {
+            margin: 0.5rem 0;
         }
 
-        .data-field label {
+        .tx-field label {
             font-size: 0.7rem;
-            letter-spacing: 0.5px;
-            font-weight: 500;
             color: #88dd99;
             display: block;
-            margin-bottom: 0.3rem;
         }
 
-        .block-data-input {
+        .tx-input, .tx-select {
             width: 100%;
             background: #010407;
             border: 1px solid #2a754a;
-            border-radius: 1rem;
-            padding: 0.6rem 0.8rem;
+            border-radius: 0.8rem;
+            padding: 0.4rem 0.6rem;
             color: #eef5ff;
             font-size: 0.8rem;
-            font-family: 'Fira Code', monospace;
-            resize: vertical;
+            font-family: monospace;
         }
 
-        .block-data-input:focus {
-            outline: none;
-            border-color: #6eff96;
-            box-shadow: 0 0 0 2px #44ff7730;
+        .balance-row {
+            background: #03070c;
+            border-radius: 0.8rem;
+            padding: 0.3rem 0.6rem;
+            margin: 0.5rem 0;
+            font-size: 0.7rem;
+            font-family: monospace;
+            color: #9dffb5;
         }
 
         .hash-row {
             background: #03070c;
-            border-radius: 1rem;
-            padding: 0.4rem 0.7rem;
-            margin: 0.6rem 0;
-            font-family: monospace;
-            font-size: 0.7rem;
+            border-radius: 0.8rem;
+            padding: 0.3rem 0.6rem;
+            margin: 0.5rem 0;
+            font-size: 0.65rem;
             word-break: break-all;
-        }
-
-        .hash-label {
-            color: #7cae8a;
-            font-size: 0.6rem;
-        }
-
-        .hash-value {
-            color: #cafcd8;
-            font-weight: 500;
-        }
-
-        .invalid-hash {
-            color: #ff95aa;
         }
 
         .status-badge {
             display: inline-block;
             font-size: 0.7rem;
-            padding: 0.2rem 0.6rem;
+            padding: 0.2rem 0.5rem;
             border-radius: 20px;
-            margin-top: 0.5rem;
-            font-family: monospace;
+            margin-top: 0.3rem;
         }
 
         .status-ok {
             background: #1a542a60;
             color: #a3f5b4;
-            border: 1px solid #4bff7840;
         }
 
         .status-bad {
             background: #8b2c4440;
             color: #ffaabb;
-            border: 1px solid #ff667b60;
         }
 
         .simulator-actions {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
             gap: 1rem;
-            margin-top: 2rem;
+            margin: 1.5rem 0;
         }
 
         button {
             background: #142015;
             border: 1px solid #3e9e5e;
-            padding: 0.7rem 1.2rem;
+            padding: 0.6rem 1.2rem;
             border-radius: 2rem;
             font-weight: 600;
             color: #ceffdb;
             cursor: pointer;
-            transition: all 0.2s;
-            font-size: 0.85rem;
+            transition: 0.2s;
+            font-size: 0.8rem;
             font-family: monospace;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
         }
 
         button.primary {
             background: #1c612e;
             border-color: #8effb0;
-            box-shadow: 0 2px 8px #2eff6e30;
         }
 
-        button.primary:hover {
-            background: #2f8244;
-            transform: scale(0.98);
+        button.danger {
+            border-color: #ff7f8f;
+            color: #ffb7c2;
         }
 
         button:hover {
             background: #2c4534;
-            border-color: #86ffa8;
+            transform: scale(0.98);
+        }
+
+        .add-tx-form {
+            background: #0b111c;
+            border-radius: 1.5rem;
+            padding: 1rem;
+            margin-top: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            align-items: flex-end;
+        }
+
+        .add-tx-form .field-group {
+            flex: 1;
+            min-width: 120px;
         }
 
         .info-note {
             background: #0c151d;
             border-radius: 1.2rem;
-            padding: 1rem 1.4rem;
-            margin-top: 1.8rem;
-            font-size: 0.85rem;
+            padding: 0.8rem 1.2rem;
+            margin-top: 1.5rem;
+            font-size: 0.8rem;
             border-left: 4px solid #5eff8c;
-            color: #c6e6d0;
-            font-family: monospace;
         }
 
         footer {
             text-align: center;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: #5f8b6f;
             margin-top: 2rem;
-            padding-top: 1rem;
-            border-top: 1px solid #2a543a;
-            font-family: monospace;
         }
 
-        @media (max-width: 800px) {
-            body {
-                padding: 1rem;
-            }
-            h1 {
-                font-size: 2rem;
-            }
-            .big-terminal {
-                padding: 1.2rem;
+        @media (max-width: 850px) {
+            .features-layout {
+                grid-template-columns: 1fr;
             }
             .block-card {
                 width: 100%;
-                max-width: 340px;
             }
         }
-
-        /* убираем стандартный подзаголовок — его нет в разметке */
     </style>
 </head>
 <body>
 <div class="container">
     <h1>⚡ Блокчейн: цифровое доверие</h1>
-
-    <!-- ЕДИНЫЙ БОЛЬШОЙ ПРЯМОУГОЛЬНИК (скруглённые углы) -->
     <div class="big-terminal">
-        <!-- Блок "Зачем нужен блокчейн" (без цифр) -->
-        <div class="section">
-            <div class="section-title">🔗 Зачем нужен блокчейн?</div>
-            <div class="grid-cards">
-                <div class="benefit-card">
-                    <div class="benefit-icon">🌍</div>
-                    <h3>Децентрализация</h3>
-                    <p>Нет единого сервера или банка. Данные хранятся у тысяч участников — никто не может отключить сеть или подделать историю в одиночку.</p>
+        <!-- Верхняя часть: вертикальные блоки + описание -->
+        <div class="features-layout">
+            <div class="features-list" id="featuresList">
+                <div class="feature-item" data-idx="0">
+                    <div class="feature-icon">🌍</div>
+                    <div class="feature-title">Децентрализация</div>
                 </div>
-                <div class="benefit-card">
-                    <div class="benefit-icon">⛓️</div>
-                    <h3>Неизменяемость</h3>
-                    <p>Любая запись остаётся навсегда. Чтобы изменить старый блок, нужно переписать все последующие — вычислительно невозможно в реальной сети.</p>
+                <div class="feature-item" data-idx="1">
+                    <div class="feature-icon">⛓️</div>
+                    <div class="feature-title">Неизменяемость</div>
                 </div>
-                <div class="benefit-card">
-                    <div class="benefit-icon">🔍</div>
-                    <h3>Прозрачность</h3>
-                    <p>Любой может проверить транзакции. Никакой скрытой бухгалтерии — доверие достигается через математику и открытый код.</p>
+                <div class="feature-item" data-idx="2">
+                    <div class="feature-icon">🔍</div>
+                    <div class="feature-title">Прозрачность</div>
                 </div>
-                <div class="benefit-card">
-                    <div class="benefit-icon">📜</div>
-                    <h3>Смарт-контракты</h3>
-                    <p>Программируемые соглашения, которые исполняются автоматически без посредников. Революция в логистике, финансах и праве.</p>
+                <div class="feature-item" data-idx="3">
+                    <div class="feature-icon">📜</div>
+                    <div class="feature-title">Смарт-контракты</div>
                 </div>
+            </div>
+            <div class="feature-description-panel" id="featureDescPanel">
+                <div class="desc-title">Децентрализация</div>
+                <div class="desc-text">Нет единого сервера или банка. Данные хранятся у тысяч участников — никто не может отключить сеть или подделать историю в одиночку.</div>
             </div>
         </div>
 
-        <!-- Блок "Как работает цепочка блоков?" (без цифр) -->
-        <div class="section">
-            <div class="section-title">⚙️ Как работает цепочка блоков?</div>
-            <div class="simulator-wrapper">
-                <p style="margin-bottom: 1rem; font-size: 0.9rem; font-family: monospace;">✨ <strong>Интерактивная модель:</strong> каждый блок содержит <strong>данные</strong> и <strong>хеш</strong>. Хеш следующего блока зависит от предыдущего. Измените текст — и цепочка станет красной!</p>
-                
-                <div id="blockchainContainer" class="chain-container">
-                    <!-- блоки рендерятся динамически -->
-                </div>
+        <!-- ИНТЕРАКТИВНАЯ МОДЕЛЬ БЛОКЧЕЙНА С ТРАНЗАКЦИЯМИ -->
+        <div>
+            <div class="section-title">🔗 Интерактивная цепочка блоков (транзакции)</div>
+            <div class="chain-controls">
+                <button id="addBlockBtn" class="primary">➕ Добавить блок (транзакцию)</button>
+                <button id="removeLastBlockBtn" class="danger">🗑️ Удалить последний блок</button>
+                <button id="repairChainBtn">🔧 Перестроить хеши (починить)</button>
+                <button id="validateBtn">🔍 Проверить целостность</button>
+            </div>
+            <div id="blockchainContainer" class="chain-container"></div>
 
-                <div class="simulator-actions">
-                    <button id="resetChainBtn" class="primary">⟳ Сбросить цепочку (пример)</button>
-                    <button id="validateChainBtn">🔎 Проверить целостность</button>
-                    <button id="repairChainBtn">🔧 «Починить» цепочку</button>
+            <!-- форма для добавления новой транзакции -->
+            <div class="add-tx-form" id="addTxForm">
+                <div class="field-group">
+                    <label>От кого</label>
+                    <input type="text" id="txFrom" class="tx-input" placeholder="Alice" value="Alice">
                 </div>
+                <div class="field-group">
+                    <label>Кому</label>
+                    <input type="text" id="txTo" class="tx-input" placeholder="Bob" value="Bob">
+                </div>
+                <div class="field-group">
+                    <label>Сумма</label>
+                    <input type="number" id="txAmount" class="tx-input" value="5">
+                </div>
+                <div class="field-group">
+                    <label>Описание</label>
+                    <input type="text" id="txDesc" class="tx-input" placeholder="оплата" value="перевод">
+                </div>
+                <button id="confirmAddBtn" class="primary">✔ Добавить</button>
+            </div>
 
-                <div class="info-note">
-                    💡 <strong>Как это работает:</strong> Каждый блок хранит хеш предыдущего. Если изменить данные в блоке #2, его хеш меняется, но блок #3 всё ещё хранит старый prevHash → связь разрывается. В реальном блокчейне подмена одного блока потребовала бы пересчёта всех следующих — это требует колоссальной мощности (Proof-of-Work). 
-                    <br><br>
-                    🧪 <strong>Попробуйте:</strong> Редактируйте текст в любом блоке → хеш меняется, цепочка ломается. Кнопка «Починить» перестраивает всё подряд — в реальной сети это невозможно без контроля 51% мощности.
-                </div>
+            <div class="info-note">
+                💡 <strong>Как это работает:</strong> Каждый блок содержит транзакцию (от кого, кому, сумма) и хеш. Первый блок (Genesis) имеет баланс 50 у Alice, его нельзя удалить. <br>
+                ✏️ <strong>Редактируйте поля</strong> — хеш меняется, цепочка ломается. Нажмите «Починить» — перестроите хеши (в реальном блокчейне это требует колоссальной мощности). <br>
+                ➕ <strong>Добавляйте/удаляйте блоки</strong> — балансы пересчитываются автоматически.
             </div>
         </div>
     </div>
-    <footer>
-        // образовательный проект — принцип неразрывной цепочки хешей | редактируй, ломай, исследуй
-    </footer>
+    <footer>// образовательный проект — неизменяемость, прозрачность, децентрализация | редактируй, исследуй</footer>
 </div>
 
 <script>
-    // ----- ХЕШ-ФУНКЦИЯ (простая, детерминированная) -----
+    // ----- ХЕШ-ФУНКЦИЯ -----
     function simpleHash(str) {
         let hash = 0;
         for (let i = 0; i < str.length; i++) {
-            const char = str.charCodeAt(i);
-            hash = ((hash << 5) - hash) + char;
+            hash = ((hash << 5) - hash) + str.charCodeAt(i);
             hash |= 0;
         }
-        const hex = (hash >>> 0).toString(16).padStart(8, '0');
-        return hex.slice(0, 8);
+        return (hash >>> 0).toString(16).padStart(8, '0').slice(0, 8);
     }
 
-    function computeBlockHash(index, data, previousHash) {
-        const payload = `${index}|${data}|${previousHash}`;
+    function computeBlockHash(index, from, to, amount, description, prevHash) {
+        const payload = `${index}|${from}|${to}|${amount}|${description}|${prevHash}`;
         return simpleHash(payload);
     }
 
-    const DEFAULT_DATA = [
-        "🏦 Алиса → Бобу: 10 BTC | транзакция #001",
-        "🔄 Боб → Карлу: 5 BTC | оплата услуг",
-        "🍕 Карл → Алисе: 2 BTC | пицца вечером"
-    ];
+    // ---------- УПРАВЛЕНИЕ БЛОКАМИ И БАЛАНСАМИ ----------
+    let blocks = []; // каждый блок: { index, from, to, amount, description, prevHash, hash, balanceAfter? вычисляется отдельно }
 
-    let blocks = [];
-
-    function rebuildChainFromData() {
+    // пересчёт балансов (на основе генезис блока и последовательных транзакций)
+    // также обновляет поле senderBalanceAfter для каждого блока (баланс отправителя после выполнения)
+    function recomputeBalancesAndChain() {
         if (!blocks.length) return;
-        let prevHash = "0";
-        for (let i = 0; i < blocks.length; i++) {
-            const block = blocks[i];
-            const newHash = computeBlockHash(block.index, block.data, prevHash);
-            block.prevHash = prevHash;
-            block.hash = newHash;
-            prevHash = newHash;
+        let balances = new Map(); // address -> balance
+        // начальная инициализация из genesis блока (особый)
+        const genesis = blocks[0];
+        if (genesis.from === "Genesis" && genesis.to === "Alice") {
+            balances.set("Alice", genesis.amount); // 50
+        } else {
+            balances.set("Alice", 0);
         }
+        // для каждого блока, начиная с 1, применяем транзакцию
+        for (let i = 1; i < blocks.length; i++) {
+            const b = blocks[i];
+            const fromBalance = balances.get(b.from) || 0;
+            const newFromBalance = fromBalance - b.amount;
+            const toBalance = balances.get(b.to) || 0;
+            balances.set(b.from, newFromBalance);
+            balances.set(b.to, toBalance + b.amount);
+            b.senderBalanceAfter = newFromBalance; // сохраняем для отображения
+        }
+        // для genesis тоже добавим поле
+        blocks[0].senderBalanceAfter = balances.get("Alice");
     }
 
-    function resetToExample() {
-        const newBlocks = [];
-        let prev = "0";
-        for (let i = 0; i < DEFAULT_DATA.length; i++) {
-            const idx = i + 1;
-            const dataStr = DEFAULT_DATA[i];
-            const hashValue = computeBlockHash(idx, dataStr, prev);
-            newBlocks.push({
-                index: idx,
-                data: dataStr,
-                prevHash: prev,
-                hash: hashValue,
-            });
-            prev = hashValue;
+    // перестроить всю цепочку хешей (правильные prevHash и hash)
+    function rebuildChainHashes() {
+        let prevHash = "0";
+        for (let i = 0; i < blocks.length; i++) {
+            const b = blocks[i];
+            b.prevHash = prevHash;
+            b.hash = computeBlockHash(b.index, b.from, b.to, b.amount, b.description, prevHash);
+            prevHash = b.hash;
         }
-        blocks = newBlocks;
+        recomputeBalancesAndChain();
         renderChain();
     }
 
-    function validateChainIntegrity() {
-        const validity = new Array(blocks.length).fill(false);
-        if (!blocks.length) return validity;
+    // инициализация цепочки: genesis блок c балансом 50 (неудаляемый)
+    function initGenesis() {
+        const genesis = {
+            index: 1,
+            from: "Genesis",
+            to: "Alice",
+            amount: 50,
+            description: "Начальный баланс (нельзя удалить)",
+            prevHash: "0",
+            hash: "",
+            senderBalanceAfter: 50
+        };
+        genesis.hash = computeBlockHash(1, genesis.from, genesis.to, genesis.amount, genesis.description, "0");
+        blocks = [genesis];
+        rebuildChainHashes(); // перестроит хеши и балансы
+    }
+
+    // добавить новый блок (транзакцию) в конец
+    function addTransaction(from, to, amount, description) {
+        const newIndex = blocks.length + 1;
+        const prevBlock = blocks[blocks.length - 1];
+        const newBlock = {
+            index: newIndex,
+            from: from,
+            to: to,
+            amount: Number(amount),
+            description: description,
+            prevHash: prevBlock.hash,
+            hash: "",
+            senderBalanceAfter: 0
+        };
+        newBlock.hash = computeBlockHash(newIndex, from, to, Number(amount), description, prevBlock.hash);
+        blocks.push(newBlock);
+        rebuildChainHashes(); // пересчитывает всё, чтобы балансы и хеши были консистентны
+        renderChain();
+    }
+
+    // удалить последний блок (если не genesis)
+    function removeLastBlock() {
+        if (blocks.length <= 1) {
+            alert("Первый блок (Genesis) нельзя удалить — он содержит начальный баланс 50");
+            return;
+        }
+        blocks.pop();
+        rebuildChainHashes();
+        renderChain();
+    }
+
+    // обновление данных конкретного блока (из формы)
+    function updateBlock(blockIdx, newFrom, newTo, newAmount, newDesc) {
+        const block = blocks.find(b => b.index === blockIdx);
+        if (!block) return;
+        if (block.index === 1 && (newFrom !== "Genesis" || newTo !== "Alice")) {
+            alert("Первый блок (Genesis) нельзя изменять, он фиксирует начальный баланс 50.");
+            renderChain();
+            return;
+        }
+        block.from = newFrom;
+        block.to = newTo;
+        block.amount = Number(newAmount);
+        block.description = newDesc;
+        // не меняем prevHash, только пересчитываем hash этого блока (цепочка сломается)
+        block.hash = computeBlockHash(block.index, block.from, block.to, block.amount, block.description, block.prevHash);
+        // балансы и связи пересчитаем при рендере, но хеши следующих блоков останутся старыми => цепочка сломается
+        recomputeBalancesAndChain(); // пересчет балансов на основе текущих данных (но хеши не трогаем)
+        renderChain();
+    }
+
+    // функция проверки целостности (валидность хешей и связей)
+    function validateChain() {
+        let valid = true;
         let expectedPrev = "0";
         for (let i = 0; i < blocks.length; i++) {
-            const block = blocks[i];
-            const recalculatedHash = computeBlockHash(block.index, block.data, expectedPrev);
-            const isPrevValid = (block.prevHash === expectedPrev);
-            const isHashValid = (block.hash === recalculatedHash);
-            let valid = isPrevValid && isHashValid;
-            // дополнительно проверим, что следующий блок (если есть) ссылается на текущий реальный хеш
-            if (valid && i + 1 < blocks.length) {
-                if (blocks[i+1].prevHash !== block.hash) {
-                    valid = false;
-                }
+            const b = blocks[i];
+            const recalcHash = computeBlockHash(b.index, b.from, b.to, b.amount, b.description, expectedPrev);
+            if (b.prevHash !== expectedPrev || b.hash !== recalcHash) {
+                valid = false;
+                break;
             }
-            validity[i] = valid;
-            expectedPrev = block.hash; // идём по фактическому хешу для след. проверки
+            expectedPrev = b.hash;
         }
-        // проверка первого блока на prevHash = "0"
-        if (blocks[0] && blocks[0].prevHash !== "0") validity[0] = false;
+        return valid;
+    }
+
+    function getBlockValidityArray() {
+        const validity = [];
+        let expectedPrev = "0";
+        for (let i = 0; i < blocks.length; i++) {
+            const b = blocks[i];
+            const recalcHash = computeBlockHash(b.index, b.from, b.to, b.amount, b.description, expectedPrev);
+            const ok = (b.prevHash === expectedPrev && b.hash === recalcHash);
+            validity.push(ok);
+            expectedPrev = b.hash;
+        }
         return validity;
     }
 
-    function updateBlockData(blockIndex, newData) {
-        const block = blocks.find(b => b.index === blockIndex);
-        if (!block) return;
-        block.data = newData;
-        const recalculatedHash = computeBlockHash(block.index, block.data, block.prevHash);
-        block.hash = recalculatedHash;
-        renderChain();
-    }
-
-    function repairChain() {
-        if (!blocks.length) return;
-        let prev = "0";
-        for (let i = 0; i < blocks.length; i++) {
-            const block = blocks[i];
-            block.prevHash = prev;
-            const newHash = computeBlockHash(block.index, block.data, prev);
-            block.hash = newHash;
-            prev = newHash;
-        }
-        renderChain();
-    }
-
-    function escapeHtml(str) {
-        return str.replace(/[&<>]/g, function(m) {
-            if (m === '&') return '&amp;';
-            if (m === '<') return '&lt;';
-            if (m === '>') return '&gt;';
-            return m;
-        });
-    }
-
+    // ----- ОТРИСОВКА ЦЕПОЧКИ -----
     function renderChain() {
         const container = document.getElementById('blockchainContainer');
         if (!container) return;
-        const validityArray = validateChainIntegrity();
+        const validity = getBlockValidityArray();
         container.innerHTML = '';
-        blocks.forEach((block, idx) => {
-            const isValid = validityArray[idx] === true;
+        blocks.forEach(block => {
+            const idx = block.index;
+            const isValid = validity[idx-1];
             const blockDiv = document.createElement('div');
             blockDiv.className = `block-card ${isValid ? 'valid' : 'invalid'}`;
             blockDiv.innerHTML = `
@@ -553,47 +602,121 @@
                     <span class="block-index">Блок #${block.index}</span>
                     <span class="block-badge">${isValid ? '✔ валиден' : '⚠ нарушен'}</span>
                 </div>
-                <div class="data-field">
-                    <label>📦 ДАННЫЕ (измени текст)</label>
-                    <textarea class="block-data-input" data-index="${block.index}" rows="2">${escapeHtml(block.data)}</textarea>
+                <div class="tx-field"><label>📤 От кого</label>
+                    <input type="text" class="tx-input edit-from" value="${escapeHtml(block.from)}" data-block="${block.index}">
                 </div>
-                <div class="hash-row">
-                    <div class="hash-label">🔗 PREV HASH</div>
-                    <div class="hash-value">${block.prevHash}</div>
+                <div class="tx-field"><label>📥 Кому</label>
+                    <input type="text" class="tx-input edit-to" value="${escapeHtml(block.to)}" data-block="${block.index}">
                 </div>
-                <div class="hash-row">
-                    <div class="hash-label">🔐 ТЕКУЩИЙ HASH</div>
-                    <div class="hash-value ${!isValid ? 'invalid-hash' : ''}">${block.hash}</div>
+                <div class="tx-field"><label>💰 Сумма</label>
+                    <input type="number" class="tx-input edit-amount" value="${block.amount}" data-block="${block.index}">
                 </div>
+                <div class="tx-field"><label>📝 Описание</label>
+                    <input type="text" class="tx-input edit-desc" value="${escapeHtml(block.description)}" data-block="${block.index}">
+                </div>
+                <div class="balance-row">💎 Баланс отправителя после транзакции: <strong>${block.senderBalanceAfter ?? '—'}</strong></div>
+                <div class="hash-row">🔗 prevHash: ${block.prevHash}</div>
+                <div class="hash-row">🔐 hash: ${block.hash}</div>
                 <div class="status-badge ${isValid ? 'status-ok' : 'status-bad'}">
-                    ${isValid ? '✓ цепочка цела' : '✗ связь нарушена / хеш не совпадает'}
+                    ${isValid ? '✓ связь цела' : '✗ цепочка сломана (измените хеши)'}
                 </div>
             `;
             container.appendChild(blockDiv);
         });
-
-        document.querySelectorAll('.block-data-input').forEach(textarea => {
-            const blockIdx = parseInt(textarea.getAttribute('data-index'), 10);
-            textarea.addEventListener('input', (e) => {
-                updateBlockData(blockIdx, e.target.value);
-            });
+        // добавить обработчики изменений полей
+        document.querySelectorAll('.edit-from').forEach(inp => {
+            const bid = parseInt(inp.dataset.block);
+            inp.addEventListener('change', (e) => updateBlock(bid, e.target.value, getFieldValue(bid, 'to'), getFieldValue(bid, 'amount'), getFieldValue(bid, 'desc')));
+        });
+        document.querySelectorAll('.edit-to').forEach(inp => {
+            const bid = parseInt(inp.dataset.block);
+            inp.addEventListener('change', (e) => updateBlock(bid, getFieldValue(bid, 'from'), e.target.value, getFieldValue(bid, 'amount'), getFieldValue(bid, 'desc')));
+        });
+        document.querySelectorAll('.edit-amount').forEach(inp => {
+            const bid = parseInt(inp.dataset.block);
+            inp.addEventListener('change', (e) => updateBlock(bid, getFieldValue(bid, 'from'), getFieldValue(bid, 'to'), parseFloat(e.target.value), getFieldValue(bid, 'desc')));
+        });
+        document.querySelectorAll('.edit-desc').forEach(inp => {
+            const bid = parseInt(inp.dataset.block);
+            inp.addEventListener('change', (e) => updateBlock(bid, getFieldValue(bid, 'from'), getFieldValue(bid, 'to'), getFieldValue(bid, 'amount'), e.target.value));
         });
     }
 
-    function bindEvents() {
-        const resetBtn = document.getElementById('resetChainBtn');
-        if (resetBtn) resetBtn.addEventListener('click', () => resetToExample());
-        const validateBtn = document.getElementById('validateChainBtn');
-        if (validateBtn) validateBtn.addEventListener('click', () => renderChain());
-        const repairBtn = document.getElementById('repairChainBtn');
-        if (repairBtn) repairBtn.addEventListener('click', () => repairChain());
+    function getFieldValue(blockIdx, field) {
+        const block = blocks.find(b => b.index === blockIdx);
+        if (!block) return '';
+        if (field === 'from') return block.from;
+        if (field === 'to') return block.to;
+        if (field === 'amount') return block.amount;
+        if (field === 'desc') return block.description;
+        return '';
     }
 
-    function init() {
-        resetToExample();
-        bindEvents();
+    function escapeHtml(str) {
+        return String(str).replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
     }
-    init();
+
+    // ----- УПРАВЛЕНИЕ ВЕРХНИМИ КАРТОЧКАМИ (описание) -----
+    const featuresData = [
+        { title: "Децентрализация", desc: "Нет единого сервера или банка. Данные хранятся у тысяч участников — никто не может отключить сеть или подделать историю в одиночку." },
+        { title: "Неизменяемость", desc: "Любая запись остаётся навсегда. Чтобы изменить старый блок, нужно переписать все последующие — вычислительно невозможно в реальной сети." },
+        { title: "Прозрачность", desc: "Любой может проверить транзакции. Никакой скрытой бухгалтерии — доверие достигается через математику и открытый код." },
+        { title: "Смарт-контракты", desc: "Программируемые соглашения, которые исполняются автоматически без посредников. Революция в логистике, финансах и праве." }
+    ];
+
+    function initFeatures() {
+        const items = document.querySelectorAll('.feature-item');
+        const panel = document.getElementById('featureDescPanel');
+        function setActive(index) {
+            items.forEach((item, i) => {
+                if (i === index) item.classList.add('active');
+                else item.classList.remove('active');
+            });
+            panel.innerHTML = `<div class="desc-title">${featuresData[index].title}</div><div class="desc-text">${featuresData[index].desc}</div>`;
+        }
+        items.forEach((item, idx) => {
+            item.addEventListener('click', () => setActive(idx));
+        });
+        setActive(0);
+    }
+
+    // ----- СОБЫТИЯ -----
+    function bindChainEvents() {
+        document.getElementById('addBlockBtn').addEventListener('click', () => {
+            document.getElementById('confirmAddBtn').click();
+        });
+        document.getElementById('confirmAddBtn').addEventListener('click', () => {
+            const from = document.getElementById('txFrom').value.trim();
+            const to = document.getElementById('txTo').value.trim();
+            const amount = parseFloat(document.getElementById('txAmount').value);
+            const desc = document.getElementById('txDesc').value.trim();
+            if (!from || !to || isNaN(amount) || amount <= 0) {
+                alert("Заполните все поля корректно (сумма > 0)");
+                return;
+            }
+            addTransaction(from, to, amount, desc);
+        });
+        document.getElementById('removeLastBlockBtn').addEventListener('click', removeLastBlock);
+        document.getElementById('repairChainBtn').addEventListener('click', () => {
+            rebuildChainHashes();
+        });
+        document.getElementById('validateBtn').addEventListener('click', () => {
+            const valid = validateChain();
+            alert(valid ? "✅ Цепочка валидна! Все хеши и связи корректны." : "❌ Цепочка нарушена! Измените данные или нажмите «Починить».");
+            renderChain();
+        });
+    }
+
+    // старт
+    initGenesis();
+    bindChainEvents();
+    initFeatures();
+    renderChain();
 </script>
 </body>
 </html>
