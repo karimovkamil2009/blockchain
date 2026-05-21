@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -11,69 +10,104 @@
             box-sizing: border-box;
         }
 
+        /* ----- ФОН В СТИЛЕ ПРОГРАММИРОВАНИЯ (код/матрица) ----- */
         body {
-            background: linear-gradient(145deg, #0a0c12 0%, #0f1119 100%);
-            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-            color: #eef2ff;
+            background: #0a0c10;
+            font-family: 'Fira Code', 'JetBrains Mono', 'SF Mono', 'Inter', monospace;
+            color: #e3e6ff;
             line-height: 1.5;
             padding: 2rem 1.5rem;
+            position: relative;
+            min-height: 100vh;
         }
 
-        /* гладкий скролл */
-        html {
-            scroll-behavior: smooth;
+        /* анимированный фон с "кодом" */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(0deg, rgba(0, 255, 65, 0.03) 0px, rgba(0, 255, 65, 0.03) 2px, transparent 2px, transparent 6px),
+                repeating-linear-gradient(90deg, rgba(0, 255, 65, 0.02) 0px, rgba(0, 255, 65, 0.02) 1px, transparent 1px, transparent 8px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* "шум" из символов */
+        body::after {
+            content: "console.log('blockchain ready'); >_ const hash = sha256(block); // immutable  ฿  </>";
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-size: 0.7rem;
+            color: #2a7f3e;
+            background: #0a0c10aa;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-family: monospace;
+            backdrop-filter: blur(4px);
+            pointer-events: none;
+            z-index: 1;
+            white-space: pre;
+            opacity: 0.5;
         }
 
         .container {
             max-width: 1400px;
             margin: 0 auto;
+            position: relative;
+            z-index: 2;
         }
 
-        /* заголовки */
+        /* Заголовок главный */
         h1 {
-            font-size: 3rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #ffffff, #a5f0ff, #6c63ff);
+            font-size: 2.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #c0ffb0, #6eff8e, #2bffaa);
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
-            letter-spacing: -0.02em;
-            margin-bottom: 1rem;
+            letter-spacing: -0.01em;
+            margin-bottom: 2rem;
+            border-left: 4px solid #2eff7a;
+            padding-left: 1.2rem;
+            font-family: 'Fira Code', monospace;
+            text-shadow: 0 0 5px #1eff6e30;
         }
 
-        .subhead {
-            font-size: 1.25rem;
-            color: #9ca3cf;
-            max-width: 680px;
+        /* ----- ОДИН БОЛЬШОЙ ПРЯМОУГОЛЬНИК (все блоки внутри) ----- */
+        .big-terminal {
+            background: rgba(8, 12, 18, 0.85);
+            backdrop-filter: blur(12px);
+            border-radius: 2.5rem;
+            border: 1px solid #2a7f3e80;
+            box-shadow: 0 25px 40px -12px black, inset 0 1px 0 rgba(80, 255, 120, 0.2);
+            padding: 2rem 2rem 2.2rem;
+            transition: all 0.2s;
+        }
+
+        /* секции без номеров (убрали 01,02) */
+        .section {
             margin-bottom: 3rem;
-            border-left: 3px solid #4f46e5;
-            padding-left: 1.25rem;
-        }
-
-        /* секции */
-        section {
-            margin-bottom: 4rem;
         }
 
         .section-title {
-            font-size: 1.8rem;
+            font-size: 1.7rem;
             font-weight: 600;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 0.5rem;
+            border-bottom: 2px solid #2a7f3e60;
+            display: inline-block;
+            padding-bottom: 0.3rem;
+            letter-spacing: -0.3px;
         }
 
-        .section-title span {
-            background: #1e1f2c;
-            padding: 0.2rem 0.7rem;
-            border-radius: 40px;
-            font-size: 1rem;
-            font-weight: 500;
-            color: #a5b4fc;
-        }
-
-        /* карточки преимуществ */
+        /* карточки преимуществ (сетка) */
         .grid-cards {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -82,43 +116,47 @@
         }
 
         .benefit-card {
-            background: rgba(20, 22, 36, 0.7);
+            background: rgba(12, 18, 26, 0.8);
             backdrop-filter: blur(2px);
-            border: 1px solid rgba(79, 70, 229, 0.3);
-            border-radius: 2rem;
-            padding: 1.8rem 1.5rem;
+            border: 1px solid #2a7f3e70;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
             transition: all 0.2s ease;
+            font-family: 'Inter', 'Fira Code', monospace;
         }
 
         .benefit-card:hover {
-            border-color: #4f46e5;
-            background: rgba(30, 32, 50, 0.8);
-            transform: translateY(-4px);
+            border-color: #4eff7a;
+            background: rgba(20, 30, 28, 0.9);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(46, 255, 122, 0.1);
         }
 
         .benefit-icon {
-            font-size: 2.4rem;
-            margin-bottom: 1rem;
-        }
-
-        .benefit-card h3 {
-            font-size: 1.5rem;
-            font-weight: 600;
+            font-size: 2.2rem;
             margin-bottom: 0.75rem;
         }
 
-        .benefit-card p {
-            color: #b9c0e3;
-            font-size: 0.95rem;
+        .benefit-card h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 0.65rem;
+            color: #b9ffc4;
         }
 
-        /* интерактивный блокчейн симулятор */
+        .benefit-card p {
+            color: #b8c7e7;
+            font-size: 0.9rem;
+            line-height: 1.45;
+        }
+
+        /* интерактивный симулятор блокчейна */
         .simulator-wrapper {
-            background: #0b0d14;
-            border-radius: 2rem;
-            border: 1px solid #282c3a;
-            padding: 1.8rem;
-            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.5);
+            background: #050a0f70;
+            border-radius: 1.8rem;
+            border: 1px solid #2a7f3e60;
+            padding: 1.5rem;
+            margin-top: 0.5rem;
         }
 
         .chain-container {
@@ -126,52 +164,49 @@
             flex-wrap: wrap;
             justify-content: center;
             gap: 1.8rem;
-            margin: 2rem 0 1.5rem;
+            margin: 1.8rem 0 1.5rem;
         }
 
         .block-card {
-            background: #11131f;
-            border-radius: 1.5rem;
-            border: 1px solid #2a2e42;
-            width: 280px;
-            padding: 1rem 1.2rem 1.2rem;
-            transition: all 0.2s;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            background: #0c111b;
+            border-radius: 1.2rem;
+            border: 1px solid #2e7a4a;
+            width: 290px;
+            padding: 1rem;
+            transition: 0.1s;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.5);
         }
 
         .block-card.invalid {
-            border: 2px solid #f43f5e;
-            background: #1f1420;
-            box-shadow: 0 0 0 2px rgba(244, 63, 94, 0.3);
-        }
-
-        .block-card.valid {
-            border: 1px solid #2a2e42;
+            border: 2px solid #ff5f7a;
+            background: #1e121a;
+            box-shadow: 0 0 0 2px #ff3b5c30;
         }
 
         .block-header {
             display: flex;
             justify-content: space-between;
             align-items: baseline;
-            border-bottom: 1px dashed #2c2f42;
+            border-bottom: 1px dashed #3c6e4f;
             padding-bottom: 0.5rem;
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
         }
 
         .block-index {
             font-weight: 700;
-            font-size: 1.2rem;
-            background: #1e2132;
+            font-size: 1rem;
+            background: #1c2a22;
             padding: 0.2rem 0.7rem;
             border-radius: 30px;
+            font-family: monospace;
         }
 
         .block-badge {
-            font-size: 0.7rem;
-            background: #2d2f42;
+            font-size: 0.65rem;
+            background: #1f2e24;
             padding: 0.2rem 0.6rem;
             border-radius: 20px;
-            color: #a5b4fc;
+            color: #a2f5b0;
         }
 
         .data-field {
@@ -179,36 +214,36 @@
         }
 
         .data-field label {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            font-size: 0.7rem;
+            letter-spacing: 0.5px;
             font-weight: 500;
-            color: #8b92b5;
+            color: #88dd99;
             display: block;
-            margin-bottom: 0.4rem;
+            margin-bottom: 0.3rem;
         }
 
         .block-data-input {
             width: 100%;
-            background: #080a12;
-            border: 1px solid #2d304a;
+            background: #010407;
+            border: 1px solid #2a754a;
             border-radius: 1rem;
             padding: 0.6rem 0.8rem;
-            color: #f0f3ff;
-            font-size: 0.85rem;
-            font-family: monospace;
+            color: #eef5ff;
+            font-size: 0.8rem;
+            font-family: 'Fira Code', monospace;
             resize: vertical;
         }
 
         .block-data-input:focus {
             outline: none;
-            border-color: #6c63ff;
+            border-color: #6eff96;
+            box-shadow: 0 0 0 2px #44ff7730;
         }
 
         .hash-row {
-            background: #07090f;
+            background: #03070c;
             border-radius: 1rem;
-            padding: 0.5rem 0.7rem;
+            padding: 0.4rem 0.7rem;
             margin: 0.6rem 0;
             font-family: monospace;
             font-size: 0.7rem;
@@ -216,37 +251,38 @@
         }
 
         .hash-label {
-            color: #7c82a1;
-            font-size: 0.65rem;
+            color: #7cae8a;
+            font-size: 0.6rem;
         }
 
         .hash-value {
-            color: #bbd9ff;
+            color: #cafcd8;
             font-weight: 500;
         }
 
         .invalid-hash {
-            color: #f97386;
+            color: #ff95aa;
         }
 
         .status-badge {
             display: inline-block;
             font-size: 0.7rem;
-            padding: 0.2rem 0.5rem;
+            padding: 0.2rem 0.6rem;
             border-radius: 20px;
             margin-top: 0.5rem;
+            font-family: monospace;
         }
 
         .status-ok {
-            background: #15803d30;
-            color: #4ade80;
-            border: 1px solid #22c55e30;
+            background: #1a542a60;
+            color: #a3f5b4;
+            border: 1px solid #4bff7840;
         }
 
         .status-bad {
-            background: #be123c30;
-            color: #fb7185;
-            border: 1px solid #f43f5e50;
+            background: #8b2c4440;
+            color: #ffaabb;
+            border: 1px solid #ff667b60;
         }
 
         .simulator-actions {
@@ -258,173 +294,170 @@
         }
 
         button {
-            background: #252a41;
-            border: none;
+            background: #142015;
+            border: 1px solid #3e9e5e;
             padding: 0.7rem 1.2rem;
             border-radius: 2rem;
             font-weight: 600;
-            color: #e2e8ff;
+            color: #ceffdb;
             cursor: pointer;
             transition: all 0.2s;
             font-size: 0.85rem;
+            font-family: monospace;
             display: inline-flex;
             align-items: center;
             gap: 8px;
         }
 
         button.primary {
-            background: #4f46e5;
-            box-shadow: 0 2px 8px #4f46e550;
+            background: #1c612e;
+            border-color: #8effb0;
+            box-shadow: 0 2px 8px #2eff6e30;
         }
 
         button.primary:hover {
-            background: #6366f1;
+            background: #2f8244;
             transform: scale(0.98);
         }
 
         button:hover {
-            background: #363c5e;
+            background: #2c4534;
+            border-color: #86ffa8;
         }
 
         .info-note {
-            background: #131825;
+            background: #0c151d;
             border-radius: 1.2rem;
             padding: 1rem 1.4rem;
             margin-top: 1.8rem;
             font-size: 0.85rem;
-            border-left: 4px solid #4f46e5;
-            color: #cbd5ff;
+            border-left: 4px solid #5eff8c;
+            color: #c6e6d0;
+            font-family: monospace;
         }
 
         footer {
             text-align: center;
-            font-size: 0.8rem;
-            color: #5b638b;
-            margin-top: 4rem;
-            padding-top: 2rem;
-            border-top: 1px solid #202333;
+            font-size: 0.75rem;
+            color: #5f8b6f;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #2a543a;
+            font-family: monospace;
         }
 
-        @media (max-width: 780px) {
+        @media (max-width: 800px) {
             body {
                 padding: 1rem;
             }
             h1 {
-                font-size: 2.2rem;
+                font-size: 2rem;
+            }
+            .big-terminal {
+                padding: 1.2rem;
             }
             .block-card {
                 width: 100%;
-                max-width: 320px;
+                max-width: 340px;
             }
         }
+
+        /* убираем стандартный подзаголовок — его нет в разметке */
     </style>
 </head>
 <body>
 <div class="container">
     <h1>⚡ Блокчейн: цифровое доверие</h1>
-    <div class="subhead">
-        Интерактивное объяснение, зачем нужен блокчейн и как неразрывная цепочка блоков защищает данные.
-        Редактируйте информацию — и увидите, как ломается связь!
+
+    <!-- ЕДИНЫЙ БОЛЬШОЙ ПРЯМОУГОЛЬНИК (скруглённые углы) -->
+    <div class="big-terminal">
+        <!-- Блок "Зачем нужен блокчейн" (без цифр) -->
+        <div class="section">
+            <div class="section-title">🔗 Зачем нужен блокчейн?</div>
+            <div class="grid-cards">
+                <div class="benefit-card">
+                    <div class="benefit-icon">🌍</div>
+                    <h3>Децентрализация</h3>
+                    <p>Нет единого сервера или банка. Данные хранятся у тысяч участников — никто не может отключить сеть или подделать историю в одиночку.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">⛓️</div>
+                    <h3>Неизменяемость</h3>
+                    <p>Любая запись остаётся навсегда. Чтобы изменить старый блок, нужно переписать все последующие — вычислительно невозможно в реальной сети.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🔍</div>
+                    <h3>Прозрачность</h3>
+                    <p>Любой может проверить транзакции. Никакой скрытой бухгалтерии — доверие достигается через математику и открытый код.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">📜</div>
+                    <h3>Смарт-контракты</h3>
+                    <p>Программируемые соглашения, которые исполняются автоматически без посредников. Революция в логистике, финансах и праве.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Блок "Как работает цепочка блоков?" (без цифр) -->
+        <div class="section">
+            <div class="section-title">⚙️ Как работает цепочка блоков?</div>
+            <div class="simulator-wrapper">
+                <p style="margin-bottom: 1rem; font-size: 0.9rem; font-family: monospace;">✨ <strong>Интерактивная модель:</strong> каждый блок содержит <strong>данные</strong> и <strong>хеш</strong>. Хеш следующего блока зависит от предыдущего. Измените текст — и цепочка станет красной!</p>
+                
+                <div id="blockchainContainer" class="chain-container">
+                    <!-- блоки рендерятся динамически -->
+                </div>
+
+                <div class="simulator-actions">
+                    <button id="resetChainBtn" class="primary">⟳ Сбросить цепочку (пример)</button>
+                    <button id="validateChainBtn">🔎 Проверить целостность</button>
+                    <button id="repairChainBtn">🔧 «Починить» цепочку</button>
+                </div>
+
+                <div class="info-note">
+                    💡 <strong>Как это работает:</strong> Каждый блок хранит хеш предыдущего. Если изменить данные в блоке #2, его хеш меняется, но блок #3 всё ещё хранит старый prevHash → связь разрывается. В реальном блокчейне подмена одного блока потребовала бы пересчёта всех следующих — это требует колоссальной мощности (Proof-of-Work). 
+                    <br><br>
+                    🧪 <strong>Попробуйте:</strong> Редактируйте текст в любом блоке → хеш меняется, цепочка ломается. Кнопка «Починить» перестраивает всё подряд — в реальной сети это невозможно без контроля 51% мощности.
+                </div>
+            </div>
+        </div>
     </div>
-
-    <!-- Зачем нужен блокчейн: преимущества -->
-    <section>
-        <div class="section-title">
-            <span>01</span> Зачем нужен блокчейн?
-        </div>
-        <div class="grid-cards">
-            <div class="benefit-card">
-                <div class="benefit-icon">🔗</div>
-                <h3>Децентрализация</h3>
-                <p>Нет единого сервера или банка. Данные хранятся у тысяч участников — никто не может отключить сеть или подделать историю в одиночку.</p>
-            </div>
-            <div class="benefit-card">
-                <div class="benefit-icon">🛡️</div>
-                <h3>Неизменяемость</h3>
-                <p>Любая запись остаётся навсегда. Чтобы изменить старый блок, нужно переписать все последующие — вычислительно невозможно в реальной сети.</p>
-            </div>
-            <div class="benefit-card">
-                <div class="benefit-icon">👁️</div>
-                <h3>Прозрачность</h3>
-                <p>Любой может проверить транзакции. Никакой скрытой бухгалтерии — доверие достигается через математику и открытый код.</p>
-            </div>
-            <div class="benefit-card">
-                <div class="benefit-icon">⚙️</div>
-                <h3>Смарт-контракты</h3>
-                <p>Программируемые соглашения, которые исполняются автоматически без посредников. Революция в логистике, финансах и праве.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- ИНТЕРАКТИВ: как работает блокчейн -->
-    <section>
-        <div class="section-title">
-            <span>02</span> Как работает цепочка блоков?
-        </div>
-        <div class="simulator-wrapper">
-            <p style="margin-bottom: 1rem; font-weight: 500;">✨ <strong>Интерактивная модель:</strong> каждый блок содержит <strong>данные</strong> (например, переводы) и <strong>уникальный хеш</strong>. Хеш следующего блока зависит от хеша предыдущего (prevHash). Попробуйте изменить любую запись — цепочка станет красной!</p>
-            
-            <div id="blockchainContainer" class="chain-container">
-                <!-- сюда динамически рендерятся блоки из JS -->
-            </div>
-
-            <div class="simulator-actions">
-                <button id="resetChainBtn" class="primary">🔄 Сбросить цепочку (пример)</button>
-                <button id="validateChainBtn">🔍 Проверить целостность</button>
-                <button id="repairChainBtn">🔧 «Починить» цепочку (перестроить хеши)</button>
-            </div>
-
-            <div class="info-note">
-                💡 <strong>Как это работает:</strong> Каждый блок хранит хеш предыдущего. Если изменить данные в блоке №2, его хеш изменится, но блок №3 всё ещё хранит старый «prevHash». Цепочка разрывается — система сигнализирует о подделке. В реальном блокчейне для подмены нужно пересчитать хеши всех следующих блоков, а это требует колоссальной вычислительной мощности (Proof-of-Work). 
-                <br><br>
-                🧪 <strong>Интерактив:</strong> Редактируйте текст в любом блоке → поле ввода автоматически пересчитает хеш и проверит валидность. Нажмите «Починить цепочку» — это как если бы злоумышленник перезаписал всё подряд, но в реальной сети это невозможно.
-            </div>
-        </div>
-    </section>
     <footer>
-        🔬 Образовательный проект — принцип связки хешей и неизменяемости блокчейна наглядно.
+        // образовательный проект — принцип неразрывной цепочки хешей | редактируй, ломай, исследуй
     </footer>
 </div>
 
 <script>
-    // ------------------- ПРОСТАЯ, НО НАГЛЯДНАЯ ХЕШ-ФУНКЦИЯ -------------------
-    // Эмуляция хеша: превращаем строку в детерминированный короткий hex
+    // ----- ХЕШ-ФУНКЦИЯ (простая, детерминированная) -----
     function simpleHash(str) {
         let hash = 0;
         for (let i = 0; i < str.length; i++) {
             const char = str.charCodeAt(i);
             hash = ((hash << 5) - hash) + char;
-            hash |= 0; // 32-bit integer
+            hash |= 0;
         }
-        // переводим в беззнаковый hex и обрезаем до 8 символов для читаемости
         const hex = (hash >>> 0).toString(16).padStart(8, '0');
         return hex.slice(0, 8);
     }
 
-    // Вычисление хеша блока на основе его данных
     function computeBlockHash(index, data, previousHash) {
         const payload = `${index}|${data}|${previousHash}`;
         return simpleHash(payload);
     }
 
-    // Исходные данные примеров (блокчейн с 3 блоками)
     const DEFAULT_DATA = [
-        "🏦 Алиса → Бобу: 10 BTC | Транзакция #001",
+        "🏦 Алиса → Бобу: 10 BTC | транзакция #001",
         "🔄 Боб → Карлу: 5 BTC | оплата услуг",
         "🍕 Карл → Алисе: 2 BTC | пицца вечером"
     ];
 
-    // Структура хранения блокчейна
     let blocks = [];
 
-    // Функция перестроить всю цепочку с нуля на основе текущих данных блоков (сохраняя пользовательский текст)
-    // prevHash первого блока всегда "0"
     function rebuildChainFromData() {
         if (!blocks.length) return;
         let prevHash = "0";
         for (let i = 0; i < blocks.length; i++) {
             const block = blocks[i];
-            // вычисляем новый хеш с текущими данными и предыдущим хешом
             const newHash = computeBlockHash(block.index, block.data, prevHash);
             block.prevHash = prevHash;
             block.hash = newHash;
@@ -432,7 +465,6 @@
         }
     }
 
-    // инициализация / сброс к примеру
     function resetToExample() {
         const newBlocks = [];
         let prev = "0";
@@ -452,58 +484,39 @@
         renderChain();
     }
 
-    // Проверка целостности цепочки: для каждого блока валидируем prevHash и собственный хеш
-    // Возвращает массив булевых значений (валиден ли блок)
     function validateChainIntegrity() {
-        const validity = [];
+        const validity = new Array(blocks.length).fill(false);
         if (!blocks.length) return validity;
-        // Проверяем первый блок: его prevHash должен быть "0" и его хеш должен совпадать с вычисленным
         let expectedPrev = "0";
         for (let i = 0; i < blocks.length; i++) {
             const block = blocks[i];
             const recalculatedHash = computeBlockHash(block.index, block.data, expectedPrev);
             const isPrevValid = (block.prevHash === expectedPrev);
             const isHashValid = (block.hash === recalculatedHash);
-            const valid = isPrevValid && isHashValid;
-            validity.push(valid);
-            // следующий ожидаемый prevHash — это текущий (корректный) хеш, НО если этот блок невалиден, то цепочка дальше автоматически невалидна
-            // но для проверки используем реальный hash блока (даже если он неправильный? нет, по логике блокчейна следующий блок должен хранить предыдущий хеш.
-            // Для индикации следующего блока мы передаем реальное поле prevHash следующего блока сравниваем с текущим фактическим hash блока (не recalculated)
-            // Доп. проверка: для следующего блока expectedPrev должен быть РЕАЛЬНЫМ хешем текущего блока (block.hash)
-            expectedPrev = block.hash;
-        }
-        // Дополнительно проверим связь между блоками (предыдущий хеш следующего == хеш текущего)
-        for (let i = 1; i < blocks.length; i++) {
-            const prevBlock = blocks[i-1];
-            const currBlock = blocks[i];
-            if (currBlock.prevHash !== prevBlock.hash) {
-                validity[i] = false; // если связь нарушена — блок невалиден
+            let valid = isPrevValid && isHashValid;
+            // дополнительно проверим, что следующий блок (если есть) ссылается на текущий реальный хеш
+            if (valid && i + 1 < blocks.length) {
+                if (blocks[i+1].prevHash !== block.hash) {
+                    valid = false;
+                }
             }
+            validity[i] = valid;
+            expectedPrev = block.hash; // идём по фактическому хешу для след. проверки
         }
-        // Перепроверим первый блок
+        // проверка первого блока на prevHash = "0"
         if (blocks[0] && blocks[0].prevHash !== "0") validity[0] = false;
         return validity;
     }
 
-    // Обновление конкретного блока: пересчитать его хеш и проверить цепочку (но не трогать чужие prevHash, чтобы показать разрыв)
-    // При изменении данных пользователем мы пересчитываем ТОЛЬКО хеш текущего блока, prevHash оставляем старым.
-    // Это ломает связь с последующими блоками. Идеально для демонстрации.
     function updateBlockData(blockIndex, newData) {
         const block = blocks.find(b => b.index === blockIndex);
         if (!block) return;
         block.data = newData;
-        // Пересчитываем хеш этого блока, используя его текущий prevHash (который не меняется)
         const recalculatedHash = computeBlockHash(block.index, block.data, block.prevHash);
         block.hash = recalculatedHash;
-        
-        // После изменения данных последующие блоки становятся потенциально невалидными, но их данные и хеши не трогаем.
-        // Однако для корректной проверки связей мы не перестраиваем цепочку автоматически.
-        // Просто рендерим с новой валидацией.
         renderChain();
     }
 
-    // "Починить цепочку" — перестроить хеши и prevHash начиная с самого первого блока (как будто вся сеть пересоздаёт блоки)
-    // Это демонстрирует, что чтобы изменить один блок пришлось бы переписать всё что после него.
     function repairChain() {
         if (!blocks.length) return;
         let prev = "0";
@@ -517,22 +530,24 @@
         renderChain();
     }
 
-    // Рендер с актуальным состоянием валидации
+    function escapeHtml(str) {
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
     function renderChain() {
         const container = document.getElementById('blockchainContainer');
         if (!container) return;
         const validityArray = validateChainIntegrity();
-        
         container.innerHTML = '';
         blocks.forEach((block, idx) => {
             const isValid = validityArray[idx] === true;
             const blockDiv = document.createElement('div');
             blockDiv.className = `block-card ${isValid ? 'valid' : 'invalid'}`;
-            
-            // Создаём редактируемое поле data (textarea для наглядности)
-            const dataValue = block.data;
-            
-            // визуализация
             blockDiv.innerHTML = `
                 <div class="block-header">
                     <span class="block-index">Блок #${block.index}</span>
@@ -540,7 +555,7 @@
                 </div>
                 <div class="data-field">
                     <label>📦 ДАННЫЕ (измени текст)</label>
-                    <textarea class="block-data-input" data-index="${block.index}" rows="2">${escapeHtml(dataValue)}</textarea>
+                    <textarea class="block-data-input" data-index="${block.index}" rows="2">${escapeHtml(block.data)}</textarea>
                 </div>
                 <div class="hash-row">
                     <div class="hash-label">🔗 PREV HASH</div>
@@ -556,56 +571,28 @@
             `;
             container.appendChild(blockDiv);
         });
-        
-        // Добавляем слушатели событий на все textarea после рендера
+
         document.querySelectorAll('.block-data-input').forEach(textarea => {
             const blockIdx = parseInt(textarea.getAttribute('data-index'), 10);
             textarea.addEventListener('input', (e) => {
-                const newVal = e.target.value;
-                updateBlockData(blockIdx, newVal);
+                updateBlockData(blockIdx, e.target.value);
             });
         });
     }
-    
-    // вспомогательная функция для безопасности вывода
-    function escapeHtml(str) {
-        return str.replace(/[&<>]/g, function(m) {
-            if (m === '&') return '&amp;';
-            if (m === '<') return '&lt;';
-            if (m === '>') return '&gt;';
-            return m;
-        }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function(c) {
-            return c;
-        });
-    }
-    
-    // кнопка для валидации (просто перерендер с подсветкой)
-    function revalidateAndRender() {
-        renderChain();
-    }
-    
-    // установка обработчиков кнопок
+
     function bindEvents() {
         const resetBtn = document.getElementById('resetChainBtn');
-        if (resetBtn) resetBtn.addEventListener('click', () => {
-            resetToExample();
-        });
+        if (resetBtn) resetBtn.addEventListener('click', () => resetToExample());
         const validateBtn = document.getElementById('validateChainBtn');
-        if (validateBtn) validateBtn.addEventListener('click', () => {
-            renderChain(); // просто заново применяет валидацию
-        });
+        if (validateBtn) validateBtn.addEventListener('click', () => renderChain());
         const repairBtn = document.getElementById('repairChainBtn');
-        if (repairBtn) repairBtn.addEventListener('click', () => {
-            repairChain();
-        });
+        if (repairBtn) repairBtn.addEventListener('click', () => repairChain());
     }
-    
-    // инициализация
+
     function init() {
-        resetToExample(); // создаст блоки и отрендерит
+        resetToExample();
         bindEvents();
     }
-    
     init();
 </script>
 </body>
